@@ -1,5 +1,5 @@
 import { useDispatch, useSelector } from 'react-redux';
-import { changeValue } from '../redux/filterSlise';
+import { changeValue } from '../../redux/filterSlise';
 import { useId } from 'react';
 import css from './SearchBox.module.css';
 

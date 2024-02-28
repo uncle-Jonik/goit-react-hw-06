@@ -1,5 +1,5 @@
 import { useDispatch, useSelector } from 'react-redux';
-import { onRemove } from '../redux/contactSlise';
+import { onRemove } from '../../redux/contactSlise';
 import css from './ContactList.module.css';
 
 import { CiUser } from 'react-icons/ci';
@@ -14,7 +14,6 @@ export default function ContactList() {
   );
   const dispatch = useDispatch();
 
-  console.log(contactsState);
   return (
     <div className={css.contactListBox}>
       <ul className={css.contactList}>
@@ -42,7 +41,7 @@ export default function ContactList() {
             </li>
           ))
         ) : (
-          <p>Nothing:(</p>
+          <h2>Nothing:(</h2>
         )}
       </ul>
     </div>
