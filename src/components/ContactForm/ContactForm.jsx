@@ -3,21 +3,15 @@ import { useId } from 'react';
 import { nanoid } from 'nanoid';
 import { Formik, Form, Field, ErrorMessage } from 'formik';
 import * as Yup from 'yup';
-
-import { GoDotFill } from 'react-icons/go';
-import { FaExclamation } from 'react-icons/fa6';
 import { useDispatch } from 'react-redux';
 import { onAdd } from '../redux/contactSlise';
 
-const SignupSchema = Yup.object().shape({
-  name: Yup.string()
-    .min(3, <GoDotFill className={css.error} />)
-    .max(50, <GoDotFill className={css.error} />)
-    .required(<FaExclamation className={css.attention} />),
-  number: Yup.number()
-    .positive(<GoDotFill className={css.error} />)
-    .integer(<GoDotFill className={css.error} />)
-    .required(<FaExclamation className={css.attention} />),
+const contactSchema = Yup.object().shape({
+  name: Yup.string().min(3, 'Too Short!').max(50, 'Too Long!').required('This field is required.'),
+  number: Yup.string()
+    .min(3, 'Too Short!')
+    .max(50, 'Too Long!')
+    .required('This field is required.'),
 });
 
 export default function ContactForm() {
@@ -27,7 +21,7 @@ export default function ContactForm() {
   return (
     <Formik
       initialValues={{ name: '', number: '' }}
-      validationSchema={SignupSchema}
+      validationSchema={contactSchema}
       onSubmit={(value, actions) => {
         dispatch(onAdd({ id: nanoid(), ...value }));
         actions.resetForm();
@@ -37,17 +31,17 @@ export default function ContactForm() {
         <label htmlFor={lableName} className={css.labelForm}>
           Name:
         </label>
-        <div className={css.errorMessageBox}>
-          <Field type="text" id={lableName} name="name" className={css.inputForm} />
-          <ErrorMessage className={css.errorMessage} name="name" component="span" />
+        <div className={css.inputBox}>
+          <Field type="text" id={lableName} name="name" />
+          <ErrorMessage name="name" component="span" />
         </div>
 
         <label htmlFor={lableNumber} className={css.labelForm}>
           Number:
         </label>
-        <div className={css.errorMessageBox}>
-          <Field type="text" id={lableNumber} name="number" className={css.inputForm} />
-          <ErrorMessage className={css.errorMessage} name="number" component="span" />
+        <div className={css.inputBox}>
+          <Field type="text" id={lableNumber} name="number" />
+          <ErrorMessage name="number" component="span" />
         </div>
 
         <button type="submit" className={css.btnForm}>
