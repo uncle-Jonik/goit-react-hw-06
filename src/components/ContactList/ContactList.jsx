@@ -1,9 +1,6 @@
-import { useDispatch, useSelector } from 'react-redux';
-import { onRemove } from '../../redux/contactSlise';
+import { useSelector } from 'react-redux';
 import css from './ContactList.module.css';
-
-import { CiUser } from 'react-icons/ci';
-import { CiPhone } from 'react-icons/ci';
+import Contact from './Contact/Contact';
 
 export default function ContactList() {
   const contactsState = useSelector(state => state.contacts.items);
@@ -12,7 +9,6 @@ export default function ContactList() {
   const visibleUsers = contactsState.filter(user =>
     user.name.toLowerCase().includes(filterState.toLowerCase())
   );
-  const dispatch = useDispatch();
 
   return (
     <div className={css.contactListBox}>
@@ -20,24 +16,7 @@ export default function ContactList() {
         {visibleUsers.length !== 0 ? (
           visibleUsers.map(({ id, name, number }) => (
             <li key={id}>
-              <div className={css.information}>
-                <CiUser />
-                <p>{name}</p>
-              </div>
-              <div className={css.information}>
-                <CiPhone />
-                <p>{number}</p>
-              </div>
-
-              <button
-                className={css.delBtn}
-                id={id}
-                onClick={e => {
-                  dispatch(onRemove(e.target.id));
-                }}
-              >
-                Delete
-              </button>
+              <Contact id={id} name={name} number={number} />
             </li>
           ))
         ) : (

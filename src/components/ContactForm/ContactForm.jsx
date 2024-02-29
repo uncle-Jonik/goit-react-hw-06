@@ -4,7 +4,7 @@ import { nanoid } from 'nanoid';
 import { Formik, Form, Field, ErrorMessage } from 'formik';
 import * as Yup from 'yup';
 import { useDispatch } from 'react-redux';
-import { onAdd } from '../../redux/contactSlise';
+import { addContact } from '../../redux/contactSlise';
 
 const contactSchema = Yup.object().shape({
   name: Yup.string().min(3, 'Too Short!').max(50, 'Too Long!').required('This field is required.'),
@@ -23,7 +23,7 @@ export default function ContactForm() {
       initialValues={{ name: '', number: '' }}
       validationSchema={contactSchema}
       onSubmit={(value, actions) => {
-        dispatch(onAdd({ id: nanoid(), ...value }));
+        dispatch(addContact({ id: nanoid(), ...value }));
         actions.resetForm();
       }}
     >
