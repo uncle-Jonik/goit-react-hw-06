@@ -23,7 +23,7 @@ const contactsSlice = createSlice({
   },
 });
 
-export const { onAdd, onRemove } = contactsSlice.actions;
+export const { addContact, onRemove } = contactsSlice.actions;
 
 const contactsPersistConfig = {
   key: 'contacts',
